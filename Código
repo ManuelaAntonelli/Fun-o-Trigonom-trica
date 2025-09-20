@@ -1,0 +1,81 @@
+import numpy as np     #biblioteca para cálculo numérico
+import  matplotlib.pyplot as plt   # biblioteca para aparecer o gráfico
+
+print("######################### MENU EXPLICATIVO ###############################")
+print()
+print("PARA FUNÇÃO TRIGONOMETRICA USAMOS A FÓRMULA:  y = A * funcao(B * (x - C)) + D   ")
+print()
+print("O valor de A se refere a amplitude, que seria a altura da onda da função." )
+print("O B se trata da frequência, que seria a velocidade da onda (período). ")
+print("O C da função é o deslocamento de fase, o quanto o gráfico se move horizontalmente. ")
+print("O D se trata do deslocamento vertical no gráfico.")
+print()
+print("###########################################################################")
+print()
+
+def montar_funcao():
+    print(f"A formula geral das funções trigonometricas é: y = A * func(B * (x - C)) + D")
+    print()
+
+    while True:  #menu para escolher o tipo de função
+        print("Escolha qual tipo de função trigonométrica você quer. ")
+        print()
+        print("1: Seno (sin)")
+        print("2: Cosseno (cos)")
+        print()
+        escolha = input("Digite o número da função escolhida: ")
+        print()
+
+        if escolha == '1':
+            funcao = np.sin
+            funcao_nome = "Seno"
+            break
+        elif escolha == '2':
+            funcao = np.cos
+            funcao_nome = 'Cosseno'
+            break
+        else:
+            print("Opção invalida! Escolha uma opção válida.")
+
+    while True:   #entrada de valores pelos usuários.
+        try:
+            A= float(input("Digite o valor da amplitude (A): "))
+            B= float(input("Digite o valor da frequência (B): "))
+            C= float(input("Digite o valor do deslocamento de fase (C): "))
+            D= float(input("Digite o valor do deslocamento vertical(D): "))
+            print()
+            break
+        except ValueError:
+            print("Insira apenas valores numériocos.")
+
+    while True:
+        try: 
+            x_inicio = float(input("Digite o valor inicial para o eixo x: "))
+            x_fim = float(input("Digite o valor final para o eixo x: "))
+            print()
+            break
+        except ValueError:
+            print("Digite valores numéricos.")
+    
+    x = np.linspace(x_inicio, x_fim, 1000)  #criação de pontos para criação do gráfico
+    y = A * funcao(B * (x - C)) + D  #calculo dos valores de y
+
+
+    plt.figure(figsize=(10, 6))  #criação do gráfico (altura e largura) - em polegadas
+    plt.plot(x, y, label=f'y = {A} * {funcao_nome.lower()}({B}*(x - {C})) + {D}') #adicionando os pontos (x,y)
+
+    plt.title(f'Gráfico da Função {funcao_nome}', fontsize=16) #adiciona título no gráfico
+    plt.xlabel('Eixo x', fontsize=12)
+    plt.ylabel('Eixo y', fontsize=12)
+
+    plt.grid(True, linestyle='--', alpha=0.6) #adiciona grade no gráfico
+
+    plt.axhline(0, color='black', linewidth=0.8)  #adiciona linha no eico x=0 e y=0
+    plt.axvline(0, color='black', linewidth=0.8)
+
+    plt.legend(fontsize=12) #legenda
+
+    plt.show() #chamada de função para o gráfico
+
+if __name__ == "__main__":  #chamada da função main
+    montar_funcao() 
